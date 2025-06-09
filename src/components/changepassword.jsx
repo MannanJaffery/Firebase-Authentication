@@ -4,7 +4,7 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 const Changepassword = () => {
@@ -38,6 +38,7 @@ const Changepassword = () => {
 
   return (
     <>
+    <div class="bg-black">
       <h1>Change Password</h1>
       <form onSubmit={changepass}>
         <input
@@ -54,6 +55,8 @@ const Changepassword = () => {
         />
         <button type="submit">Change Password</button>
       </form>
+
+      </div>
     </>
   );
 };

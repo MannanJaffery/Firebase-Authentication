@@ -1,13 +1,15 @@
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Login from './Login';
-import Register from './Register';
-import ForgetPassword from "./forgetpassword";
-import Changepassword from "./changepassword";
+import Login from './components/Login';
+import Register from './components/Register';
+import ForgetPassword from "./components/forgetpassword";
+import Changepassword from "./components/changepassword";
 const App = () => {
   return (
     <>
-       <h1>APP</h1>
+
+    <div>
+       <h1 className="text-red-500 font-bold">APP</h1>
     <BrowserRouter> 
         <nav>
         <Link to="/login">Login</Link> | <Link to="/register">Register</Link> 
@@ -20,6 +22,7 @@ const App = () => {
         <Route path="/changepassword" element={<Changepassword />} />
         </Routes>
     </BrowserRouter>
+    </div>
     </>
   )
 }

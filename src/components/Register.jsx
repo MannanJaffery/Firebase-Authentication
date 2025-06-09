@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { signUpUser } from "./firebase";
+import { signUpUser } from "../firebase";
 
 import { useState } from "react";
 const Register=()=> {
