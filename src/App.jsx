@@ -1,28 +1,33 @@
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Homepage from "./components/homepage";
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgetPassword from "./components/forgetpassword";
 import Changepassword from "./components/changepassword";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
 const App = () => {
   return (
     <>
 
-    <div>
-       <h1 className="text-red-500 font-bold">APP</h1>
+  <AuthProvider>
     <BrowserRouter> 
-        <nav>
-        <Link to="/login">Login</Link> | <Link to="/register">Register</Link> 
-         | <Link to="/forgetpassword">ForgetPassword</Link> <Link to="/"></Link> | <Link to="/changepassword">ChangePassword</Link>
-        </nav>
-        <Routes>       
+        <Routes>
+        <Route path="/" element={<Homepage />}/>       
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/changepassword" element={<Changepassword />} />
+        <Route path="/changepassword" element={
+          <ProtectedRoute>
+          <Changepassword />
+          </ProtectedRoute>
+          } />
         </Routes>
     </BrowserRouter>
-    </div>
+  </AuthProvider>
     </>
   )
 }

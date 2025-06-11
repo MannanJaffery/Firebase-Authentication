@@ -3,7 +3,8 @@
 import { auth } from "../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
-
+import Footer from "./footer";
+import Navbar from "./navbar";
 const ForgetPassword = () => {
 
     const [email , setEmail] = useState('');

@@ -1,8 +1,19 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+
+
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import Navbar from "./navbar";
+import Footer from "./footer";
+
+
 
 const Login = () => {
+    const navigate = useNavigate();
+    const handleroute = ()=>{
+        navigate('/');
+}
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -13,24 +24,51 @@ const loginwithcred= async (e)=>{
     try{
     const loggedinuser=await signInWithEmailAndPassword(auth,email,password);
     console.log('Logged in' , loggedinuser);
+    alert("User has logged in");
     }catch(err){
         console.log(err);
     }
+
 }
   return (
     <>
-        <h2>Login</h2>
-        <form onSubmit={loginwithcred}>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+  <Navbar className="w-full" /> {/* Add full width to Navbar */}
 
-            <input type="email" placeholder="email" onChange={(e)=>{
-                setEmail(e.target.value);
-            }} />
-            <input type="password" placeholder="Password" onChange={(e)=>{
-                setPassword(e.target.value);
-            }} />
-            <button type="submit">Submit</button>
+  <div className="flex-1 flex items-center justify-center px-4">
+    <form
+      onSubmit={loginwithcred}
+      className="flex flex-col gap-4 w-11/12 max-w-md p-6 bg-gray-50 border-2 border-none rounded-xl shadow-lg"
+    >
+      <h2 className="text-2xl font-semibold text-center text-blue-800">Login</h2>
 
-        </form>
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+        className="p-2 rounded border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+        className="p-2 rounded border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <button onClick={handleroute}
+        type="submit"
+        className="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded transition"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <Footer className="w-full" /> {/* Add full width to Footer */}
+</div>
+
+
     </>
   )
 }
