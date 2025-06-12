@@ -8,7 +8,8 @@ import Footer from "./footer";
 
 const Courses = () => {
   const [userData, setUserData] = useState(null);
-
+  const [editingCourseIndex, setEditingCourseIndex] = useState(null);
+  const [editForm, setEditForm] = useState({ title: "", description: "" });
 
 const auth = getAuth();
 const uid = auth.currentUser?.uid;
@@ -70,6 +71,74 @@ const handleDeleteCourse = async (course) => {
 
   {/* Main Content */}
   <main className="flex-grow p-6 max-w-7xl mx-auto w-full">
+
+
+
+{editingCourseIndex !== null && (
+  <div className="mb-8 p-6 bg-white shadow-md rounded-md max-w-xl mx-auto border border-blue-200">
+    <h3 className="text-xl font-semibold text-blue-800 mb-4 text-center">Edit Course</h3>
+    
+    <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+    <input
+      type="text"
+      value={editForm.title}
+      onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+      placeholder="Enter new title"
+      className="w-full mb-4 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    
+    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+    <textarea
+      value={editForm.description}
+      onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+      placeholder="Enter new description"
+      className="w-full mb-4 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      rows={4}
+    ></textarea>
+
+    <div className="flex justify-end gap-3">
+      <button
+        onClick={async () => {
+          const courseToUpdate = userData.enrolledCourses[editingCourseIndex];
+          const updatedCourse = {
+            ...courseToUpdate,
+            title: editForm.title,
+            description: editForm.description,
+          };
+
+          const updatedCourses = [...userData.enrolledCourses];
+          updatedCourses[editingCourseIndex] = updatedCourse;
+
+          const userRef = doc(db, "User", uid);
+          await updateDoc(userRef, {
+            enrolledCourses: updatedCourses,
+          });
+
+          setUserData({ ...userData, enrolledCourses: updatedCourses });
+          setEditingCourseIndex(null);
+          setEditForm({ title: "", description: "" });
+        }}
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+      >
+        Update
+      </button>
+      <button
+        onClick={() => setEditingCourseIndex(null)}
+        className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
+
     {userData ? (
       <>
         <h1 className="text-2xl font-bold mb-4 text-blue-800">
@@ -81,8 +150,9 @@ const handleDeleteCourse = async (course) => {
           <>
             {/* Desktop Table View */}
             <div className="hidden md:block overflow-x-auto shadow-lg rounded-lg">
+             
               <table className="min-w-full divide-y divide-blue-200 bg-white">
-                <thead className="bg-blue-800 text-white">
+                <thead className="bg-blue-800 text-white ">
                   <tr>
                     <th className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Title</th>
                     <th className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Duration</th>
@@ -104,6 +174,18 @@ const handleDeleteCourse = async (course) => {
                         >
                         Delete
                         </button>
+                        <button
+                            onClick={() => {
+                                setEditingCourseIndex(index);
+                                setEditForm({
+                                title: course.title,
+                                description: course.description,
+                                });
+                            }}
+                            className="text-blue-600 hover:underline text-sm mr-2 ml-3"
+                            >
+                            Edit
+                            </button>
                     </td>
                     </tr>
                   ))}
@@ -125,6 +207,20 @@ const handleDeleteCourse = async (course) => {
                     >
                     Delete
                     </button>
+
+
+                    <button
+                            onClick={() => {
+                                setEditingCourseIndex(index);
+                                setEditForm({
+                                title: course.title,
+                                description: course.description,
+                                });
+                            }}
+                            className="text-blue-600 hover:underline text-sm mr-2 ml-3"
+                            >
+                            Edit
+                    </button>
                 </div>
               ))}
             </div>
@@ -136,6 +232,7 @@ const handleDeleteCourse = async (course) => {
     ) : (
       <p className="text-gray-600">Loading user data...</p>
     )}
+
   </main>
 
   {/* Footer */}
