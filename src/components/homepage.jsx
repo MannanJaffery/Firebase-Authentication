@@ -1,9 +1,9 @@
-import { useState } from 'react';
+
 import Navbar from './navbar';
 import Footer from './footer';
 import { useAuth } from '../context/AuthContext';
 
-import { doc ,setDoc , updateDoc} from 'firebase/firestore';
+import { doc , updateDoc} from 'firebase/firestore';
 import { db  } from '../firebase';
 import { arrayUnion } from 'firebase/firestore';
 

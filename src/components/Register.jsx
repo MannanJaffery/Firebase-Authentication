@@ -4,6 +4,7 @@ import Navbar from "./navbar";
 import Footer from "./footer";
 
 
+
 import { useState } from "react";
 const Register=()=> {
 
