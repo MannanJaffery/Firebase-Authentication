@@ -7,6 +7,7 @@ import ForgetPassword from "./components/forgetpassword";
 import Changepassword from "./components/changepassword";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Courses from "./components/courses";
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           <Changepassword />
           </ProtectedRoute>
           } />
+          <Route path = "/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>}></Route>
         </Routes>
     </BrowserRouter>
   </AuthProvider>

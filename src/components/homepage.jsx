@@ -1,8 +1,16 @@
-import React from 'react';
+import { useState } from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
+import { useAuth } from '../context/AuthContext';
+
+import { doc ,setDoc , updateDoc} from 'firebase/firestore';
+import { db  } from '../firebase';
+import { arrayUnion } from 'firebase/firestore';
+
 const Homepage = () => {
   // Sample course data
+  const {user, loading} = useAuth();
+
   const courses = [
     {
       id: 1,
@@ -48,6 +56,40 @@ const Homepage = () => {
     }
   ];
 
+  //const [selectedCourse, setSelectedCourse] = useState(null);
+
+const handleSubmit = async (course) => {
+  console.log("Submitting enrollment...");
+
+  try {
+    if (!user) {
+      alert("Please log in to enroll.");
+      return;
+    }
+
+    const userRef = doc(db, "User", user.uid);
+
+    const courseData = {
+      title: course.title,
+      description: course.description,
+      duration: course.duration,
+      level: course.level,
+      id: course.id
+    };
+
+    await updateDoc(userRef, {
+      enrolledCourses: arrayUnion(courseData)
+    });
+
+    alert(`Successfully enrolled in ${course.title}`);
+  } catch (err) {
+    console.error("Error enrolling user in course:", err);
+    alert("Failed to enroll. Please try again.");
+  }
+};
+
+
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -80,7 +122,18 @@ const Homepage = () => {
                 <p className="text-gray-600 mb-4">{course.description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500">
                   <span>⏱️ {course.duration}</span>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors" onClick={()=>{
+                    
+                    if(!user){
+                      alert("User must be Logged in to Enroll.");
+                    }else{
+                    // setSelectedCourse(course);
+                    handleSubmit(course);
+                    console.log(course);
+                 
+
+                  }
+                  }}>
                     Enroll Now
                   </button>
                 </div>
@@ -88,8 +141,49 @@ const Homepage = () => {
             </div>
           ))}
         </div>
+
+{/* 
+        {selectedCourse && user && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+        <button
+          type="button"
+          onClick={() => setSelectedCourse(null)}
+          className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-xl font-bold mb-4 text-center">Enroll in: {selectedCourse.title}</h2>
+        <input
+          name='sname'
+          type="text"
+          placeholder="Student Name"
+          required
+          className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+        />
+        <input
+          type="text"
+          name='roll'
+          placeholder="Roll Number"
+          required
+          className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+        >
+          Submit
+        </button>
+      </form>
+      
+    </div>
+    
+  )} */}
+
+ 
       </main>
       
+
       {/* Footer */}
       <Footer />
     </div>

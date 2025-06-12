@@ -1,7 +1,9 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
+
 import { getAuth , createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore , doc , setDoc } from "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -17,9 +19,25 @@ const app = initializeApp(firebaseConfig);
 const db=getFirestore(app);
 const auth=getAuth(app);
 
+//sign up is here , does not need any other file , more clean this way
 
-const signUpUser = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const createUserDocument = async (user, name) => {
+  if (!user) return;
+
+  const userRef = doc(db, "User", user.uid);
+  await setDoc(userRef, {
+    email: user.email,
+    Name: name,
+    enrolledCourses: []
+  }, { merge: true });
+};
+
+const signUpUser = async (email, password, name) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+
+  await createUserDocument(user, name); 
+  return userCredential;
 };
 
 

@@ -1,11 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
-
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { createUserDocument } from "../firebase";
 
 
 
@@ -23,7 +23,11 @@ const loginwithcred= async (e)=>{
 
     try{
     const loggedinuser=await signInWithEmailAndPassword(auth,email,password);
+    const user = loggedinuser.user;
+
     console.log('Logged in' , loggedinuser);
+    //await createUserDocument(user);
+    
     alert("User has logged in");
     }catch(err){
         console.log(err);

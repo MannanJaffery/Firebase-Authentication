@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { signUpUser } from "../firebase";
+import { signUpUser, createUserDocument } from "../firebase";
 import Navbar from "./navbar";
 import Footer from "./footer";
 
@@ -9,6 +9,7 @@ const Register=()=> {
 
 const [email,setEmail]=useState('');
 const [password , setPassword]=useState('');
+const [name , setName]= useState('');
 
 
 const navigate=useNavigate();
@@ -17,17 +18,19 @@ const handleNavigate=()=>{
 }
 
 
-const handleSubmit = async (e)=>{
-e.preventDefault();
-try{
-  const usercredentials=await signUpUser(email,password);
-  console.log('user created' , usercredentials.user);
-
-}catch(err){
-  console.log(err);
-}
-
-}
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const usercredentials = await signUpUser(email, password, name);
+    console.log('user created', usercredentials.user);
+  } catch (err) {
+    if (err.code === "auth/email-already-in-use") {
+      alert("This email is already registered. Please log in or use another email.");
+    } else {
+      console.error(err);
+    }
+  }
+};
 
   return (
    <>
@@ -46,6 +49,14 @@ try{
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="p-2 rounded border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+
+                <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="p-2 rounded border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
         />
 

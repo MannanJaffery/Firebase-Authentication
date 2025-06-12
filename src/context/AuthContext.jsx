@@ -23,7 +23,7 @@ useEffect(()=>{
 
 return(
     <>
-   <AuthContext.Provider value={{user}}>
+   <AuthContext.Provider value={{user , loading}}>
         {!loading && children}
    </AuthContext.Provider>
 

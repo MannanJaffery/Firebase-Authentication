@@ -1,8 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useAuth();
+  
+  const handleSignOut = async () => {
+  try {
+    await signOut(auth);
+    console.log("User signed out");
+    alert("User Signed Out");
+
+  } catch (error) {
+    console.error("Sign out error:", error);
+  }
+};
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,11 +32,20 @@ const Navbar = () => {
             to="/" 
             className="text-white text-xl font-bold hover:text-gray-300 flex-shrink-0"
           >
-            My App
+            
+            My App | <span>{user == null ? "Guest":"User" }</span>
           </Link>
 
-          {/* Desktop Menu - hidden on mobile */}
+
           <div className="hidden md:flex items-center space-x-4">
+
+            <Link
+              to="/courses"
+              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+            >
+              Courses
+            </Link>
+
             <Link
               to="/login"
               className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
@@ -45,6 +70,12 @@ const Navbar = () => {
             >
               Change Password
             </Link>
+            {user && <button
+            onClick={handleSignOut}
+            className="text-white hover:text-red-400 px-3 py-2 rounded-md"
+>
+            Sign Out
+          </button>}
           </div>
 
           {/* Mobile menu button */}
@@ -120,6 +151,22 @@ const Navbar = () => {
           >
             Change Password
           </Link>
+
+          <Link
+            to="/courses"
+            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
+            onClick={toggleMenu}
+          >
+            Courses
+          </Link>
+
+           {user && <button
+            onClick={handleSignOut}
+            className="text-white hover:text-red-400 px-3 py-2 rounded-md"
+>
+            Sign Out
+          </button>}
+
         </div>
       </div>
     </nav>
