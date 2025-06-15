@@ -6,55 +6,79 @@ import { useAuth } from '../context/AuthContext';
 import { doc , updateDoc} from 'firebase/firestore';
 import { db  } from '../firebase';
 import { arrayUnion } from 'firebase/firestore';
+import { useState , useEffect } from 'react';
+import { getDocs , collection , query , orderBy } from 'firebase/firestore';
+
 
 const Homepage = () => {
-  // Sample course data
-  const {user, loading} = useAuth();
+  const {user} = useAuth();
 
-  const courses = [
-    {
-      id: 1,
-      title: 'Web Development',
-      description: 'Learn to build modern web applications with React and Node.js',
-      duration: '8 weeks',
-      level: 'Beginner'
-    },
-    {
-      id: 2,
-      title: 'Data Science',
-      description: 'Master Python for data analysis and machine learning',
-      duration: '10 weeks',
-      level: 'Intermediate'
-    },
-    {
-      id: 3,
-      title: 'Mobile App Development',
-      description: 'Build cross-platform apps with React Native',
-      duration: '6 weeks',
-      level: 'Beginner'
-    },
-    {
-      id: 4,
-      title: 'UI/UX Design',
-      description: 'Learn design principles and tools like Figma',
-      duration: '4 weeks',
-      level: 'Beginner'
-    },
-    {
-      id: 5,
-      title: 'DevOps',
-      description: 'CI/CD pipelines, Docker, and Kubernetes',
-      duration: '8 weeks',
-      level: 'Advanced'
-    },
-    {
-      id: 6,
-      title: 'Cybersecurity',
-      description: 'Learn ethical hacking and security best practices',
-      duration: '12 weeks',
-      level: 'Intermediate'
+  const [courses,setCourses]=useState([]);
+ useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const q = query(collection(db, "Courses"), orderBy("id"));
+      const querySnapshot = await getDocs(q);
+
+      const courseList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setCourses(courseList);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
     }
-  ];
+  };
+
+  fetchCourses();
+}, []);
+
+
+
+  // const courses = [
+  //   {
+  //     id: 1,
+  //     title: 'Web Development',
+  //     description: 'Learn to build modern web applications with React and Node.js',
+  //     duration: '8 weeks',
+  //     level: 'Beginner'
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Data Science',
+  //     description: 'Master Python for data analysis and machine learning',
+  //     duration: '10 weeks',
+  //     level: 'Intermediate'
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Mobile App Development',
+  //     description: 'Build cross-platform apps with React Native',
+  //     duration: '6 weeks',
+  //     level: 'Beginner'
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'UI/UX Design',
+  //     description: 'Learn design principles and tools like Figma',
+  //     duration: '4 weeks',
+  //     level: 'Beginner'
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'DevOps',
+  //     description: 'CI/CD pipelines, Docker, and Kubernetes',
+  //     duration: '8 weeks',
+  //     level: 'Advanced'
+  //   },
+  //   {
+  //     id: 6,
+  //     title: 'Cybersecurity',
+  //     description: 'Learn ethical hacking and security best practices',
+  //     duration: '12 weeks',
+  //     level: 'Intermediate'
+  //   }
+  // ];
 
   //const [selectedCourse, setSelectedCourse] = useState(null);
 
@@ -142,49 +166,10 @@ const handleSubmit = async (course) => {
           ))}
         </div>
 
-{/* 
-        {selectedCourse && user && (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-        <button
-          type="button"
-          onClick={() => setSelectedCourse(null)}
-          className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg font-bold"
-        >
-          ×
-        </button>
-        <h2 className="text-xl font-bold mb-4 text-center">Enroll in: {selectedCourse.title}</h2>
-        <input
-          name='sname'
-          type="text"
-          placeholder="Student Name"
-          required
-          className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
-        />
-        <input
-          type="text"
-          name='roll'
-          placeholder="Roll Number"
-          required
-          className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
-        />
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
-        >
-          Submit
-        </button>
-      </form>
-      
-    </div>
-    
-  )} */}
-
- 
       </main>
-      
 
-      {/* Footer */}
+
+
       <Footer />
     </div>
   );

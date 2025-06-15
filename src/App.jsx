@@ -8,6 +8,7 @@ import Changepassword from "./components/changepassword";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Courses from "./components/courses";
+import Details from "./components/details";
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
     <>
 
   <AuthProvider>
+
     <BrowserRouter> 
         <Routes>
         <Route path="/" element={<Homepage />}/>       
@@ -27,8 +29,10 @@ const App = () => {
           </ProtectedRoute>
           } />
           <Route path = "/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>}></Route>
+          <Route path="/details" element = {<Details />}></Route>
         </Routes>
     </BrowserRouter>
+
   </AuthProvider>
     </>
   )
