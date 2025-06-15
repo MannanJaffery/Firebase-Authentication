@@ -29,7 +29,7 @@ const App = () => {
           </ProtectedRoute>
           } />
           <Route path = "/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>}></Route>
-          <Route path="/details" element = {<Details />}></Route>
+          <Route path="/details/:subId" element = {<Details />}></Route>
         </Routes>
     </BrowserRouter>
 

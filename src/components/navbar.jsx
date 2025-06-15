@@ -73,7 +73,7 @@ const Navbar = () => {
             >
               Change Password
             </Link>
-            <Link to="/details" className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md">Course Details</Link>
+            
             {user && <button
             onClick={handleSignOut}
             className="text-white hover:text-red-400 px-3 py-2 rounded-md"
@@ -164,8 +164,6 @@ const Navbar = () => {
             Courses
           </Link>
 
-           <Link to="/details" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700">
-            Course Details</Link>
 
            {user && <button
             onClick={handleSignOut}
