@@ -23,7 +23,8 @@ const handleDeleteCourse = async (course) => {
       enrolledCourses: arrayRemove(course)
     });
 
-    // changing the ui
+
+
     const updatedCourses = userData.enrolledCourses.filter(
       (c) => c.title !== course.title
     );
@@ -193,7 +194,7 @@ const handleDeleteCourse = async (course) => {
               </table>
             </div>
 
-            {/* Mobile Card View */}
+            {/* Mobile View */}
             <div className="md:hidden space-y-4">
               {userData.enrolledCourses.map((course, index) => (
                 <div key={index} className="bg-white rounded-lg shadow p-4 border border-blue-200">

@@ -9,15 +9,16 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Courses from "./components/courses";
 import Details from "./components/details";
+import Category from "./components/category";
+import {CourseProvider} from "./context/CourseProvider";
 
 
 const App = () => {
   return (
     <>
-
+<BrowserRouter> 
   <AuthProvider>
-
-    <BrowserRouter> 
+    <CourseProvider>
         <Routes>
         <Route path="/" element={<Homepage />}/>       
         <Route path="/login" element={<Login />} />
@@ -28,12 +29,16 @@ const App = () => {
           <Changepassword />
           </ProtectedRoute>
           } />
-          <Route path = "/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>}></Route>
-          <Route path="/details/:subId" element = {<Details />}></Route>
-        </Routes>
-    </BrowserRouter>
+          <Route path = "/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>}></Route>          
+          <Route path="/category/:catid" element={< Category/>}></Route>
+          <Route path="/:categoryTitle/:courseTitle" element = {<Details />}></Route>
 
+        </Routes>
+
+
+        </CourseProvider>
   </AuthProvider>
+</BrowserRouter>
     </>
   )
 }
