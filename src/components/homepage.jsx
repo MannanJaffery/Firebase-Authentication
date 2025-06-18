@@ -6,6 +6,10 @@ import { useAuth } from '../context/AuthContext'; // assuming you're using AuthC
 import Navbar from './navbar';
 import Footer from './footer';
 
+import {Swiper , SwiperSlide} from 'swiper/react';
+import {Navigation ,Pagination} from 'swiper/modules';
+
+
 const Homepage = () => {
   const {
     courses,
@@ -32,6 +36,7 @@ const Homepage = () => {
       const userRef = doc(db, "User", user.uid);
 
       const courseData = {
+        image: course.imageurl,
         title: course.title,
         description: course.description,
         duration: course.duration,
@@ -54,13 +59,12 @@ const Homepage = () => {
     setSelectedCourse(course_id);
   };
 
-  // ✅ FIXED: Use string comparison, no Number()
-  const filteredSubCourses = subcourses.filter(
-    (sub) => sub.categoryId === selectedCourse
-  );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    // <div className="min-h-screen w-full bg-gray-50  ">
+    <div
+  className="min-h-screen w-full bg-grid bg-grid-pattern bg-gray-50"
+>
       <Navbar />
 
       <main className="container mx-auto px-4 py-8">
@@ -73,12 +77,25 @@ const Homepage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <Swiper
+        modules={[Navigation , Pagination]}
+        navigation
+        pagination={{clickable:true}}
+        spaceBetween={20}
+        slidesPerView={1}
+        breakpoints={{
+          640:{slidesPerView:1},
+          768:{slidesPerView:2},
+          1024:{slidesPerView:3},
+        }}>
+
+        
           {courses.map((course) => (
-            <div
-              key={course.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-            >
+            <SwiperSlide key={course.id}>
+
+              <div className='bg-white rounded-md'>
+              {/* These images were added to github , and are being loaded from there */}
+              <img src={course.imageurl} alt="wrong" className='w-auto h-auto object-cover rounded-lg'/> 
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-xl font-bold text-gray-800">{course.title}</h2>
@@ -114,43 +131,13 @@ const Homepage = () => {
                   </button>
                 </div>
               </div>
-            </div>
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+      </Swiper>
       </main>
 
-      {/* Subcategory Modal */}
-      {selectedCourse && filteredSubCourses.length > 0 && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800 text-center">
-              Select a Subcategory
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {filteredSubCourses.map((sub) => (
-                <li
-                  key={sub.id}
-                  className="cursor-pointer px-4 py-2 bg-blue-100 rounded hover:bg-blue-200 transition text-center"
-                  onClick={() => {
-                    navigate(`/details/${sub.id}`);
-                    setSelectedCourse(null);
-                  }}
-                >
-                  {sub.title}
-                </li>
-              ))}
-            </ul>
-            <div className="text-center mt-4">
-              <button
-                onClick={() => setSelectedCourse(null)}
-                className="mt-2 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
 
       <Footer />
     </div>

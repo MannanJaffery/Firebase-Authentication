@@ -12,7 +12,9 @@ import Details from "./components/details";
 import Category from "./components/category";
 import {CourseProvider} from "./context/CourseProvider";
 
-
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination'
 const App = () => {
   return (
     <>

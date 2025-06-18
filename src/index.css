@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    @apply font-mono;
+}
+.swiper-pagination{
+    @apply mt-40 flex justify-center;
+}
