@@ -2,6 +2,7 @@ import { useState , useEffect , createContext , useContext } from "react";
 import { collection , getDocs , orderBy , query } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "./AuthContext";
+import Errorlog from "../services/errorlog";
 
 
 
@@ -43,6 +44,7 @@ export const CourseProvider = ({children}) => {
       setLoading(false);
 
     } catch (error) {
+      await Errorlog(error  , "courseprovider in context");
       console.error("Error fetching courses:", error);
     }
   };

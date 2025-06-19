@@ -4,6 +4,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import Errorlog from "../services/errorlog";
 
 const Changepassword = () => {
   const [currentPass, setCurrentPass] = useState('');
@@ -30,8 +31,9 @@ const Changepassword = () => {
       alert("Password updated successfully!");
       navigate("/");
     } catch (err) {
+      Errorlog(err , "change password component");
       console.log("Error:", err.message);
-      alert(err.message);
+
     }
   };
 

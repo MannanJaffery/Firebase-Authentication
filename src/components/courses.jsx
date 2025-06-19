@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 
 import Navbar from "./navbar";
 import Footer from "./footer";
+import Errorlog from "../services/errorlog";
 
 const Courses = () => {
   const [userData, setUserData] = useState(null);
@@ -30,6 +31,7 @@ const handleDeleteCourse = async (course) => {
     );
     setUserData({ ...userData, enrolledCourses: updatedCourses });
   } catch (error) {
+    Errorlog(error , "courses.jsx");
     console.error("Error deleting course:", error);
   }
 };

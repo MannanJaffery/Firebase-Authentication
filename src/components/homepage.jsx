@@ -8,6 +8,7 @@ import Footer from './footer';
 
 import {Swiper , SwiperSlide} from 'swiper/react';
 import {Navigation ,Pagination} from 'swiper/modules';
+import Errorlog from '../services/errorlog';
 
 
 const Homepage = () => {
@@ -48,8 +49,10 @@ const Homepage = () => {
 
       alert(`Successfully enrolled in ${course.title}`);
     } catch (err) {
+
+      Errorlog(err , "homepage.jsx");
       console.error("Error enrolling user in course:", err);
-      alert("Failed to enroll. Please try again.");
+
     }
   };
 

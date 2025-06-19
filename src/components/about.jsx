@@ -1,6 +1,9 @@
 import Navbar from "./navbar";
 import Footer from "./footer";
 // there is static data in this webpage
+
+
+
 const About = () => {
   return (
     

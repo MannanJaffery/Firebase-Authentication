@@ -6,6 +6,7 @@ import Footer from "./footer";
 
 
 import { useState } from "react";
+import Errorlog from "../services/errorlog";
 const Register=()=> {
 
 const [email,setEmail]=useState('');
@@ -28,6 +29,7 @@ const handleSubmit = async (e) => {
     if (err.code === "auth/email-already-in-use") {
       alert("This email is already registered. Please log in or use another email.");
     } else {
+      await Errorlog(err, "registere.jsx");
       console.error(err);
     }
   }

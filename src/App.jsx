@@ -12,6 +12,8 @@ import Details from "./components/details";
 import Category from "./components/category";
 import {CourseProvider} from "./context/CourseProvider";
 import About from "./components/about";
+import Contact from "./components/contact";
+
 
 const App = () => {
   return (
@@ -25,6 +27,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/about" element = {<About />}></Route>
+        <Route path="/contact" element = {<Contact />}></Route>
         <Route path="/changepassword" element={
           <ProtectedRoute>
           <Changepassword />

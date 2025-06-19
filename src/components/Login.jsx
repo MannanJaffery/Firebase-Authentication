@@ -7,6 +7,7 @@ import Navbar from "./navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
 
+import Errorlog from "../services/errorlog";
 
 
 
@@ -31,7 +32,8 @@ const loginwithcred= async (e)=>{
     
     alert("User has logged in");
     }catch(err){
-        console.log(err);
+      await Errorlog(err, "login.jsx");
+      console.log(err);
     }
 
 }

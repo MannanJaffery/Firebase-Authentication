@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+
 
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { useParams } from "react-router-dom";
 import { useCourse } from "../context/CourseProvider";
+
+
+
+import Errorlog from "../services/errorlog";
 
 
 

@@ -5,6 +5,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import Footer from "./footer";
 import Navbar from "./navbar";
+import Errorlog from "../services/errorlog";
 
 const ForgetPassword = () => {
 
@@ -18,6 +19,7 @@ const ForgetPassword = () => {
         console.log(resetpasswrod);
         }
         catch(err){
+          Errorlog(err , "foregetpassword.jsx");
             console.log(err);
         }
     }
