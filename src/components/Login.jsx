@@ -5,7 +5,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import Footer from "./footer";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -67,6 +67,17 @@ const loginwithcred= async (e)=>{
       >
         Submit
       </button>
+
+
+      
+        <Link
+              to="/forgetpassword"
+              className="text-blue-800 hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+            >
+              Forget Password
+        </Link>
+
+
     </form>
   </div>
 

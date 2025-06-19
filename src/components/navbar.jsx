@@ -43,36 +43,57 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
 
             <Link
+              to="/"
+              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+            >
+              Home
+            </Link>
+
+            <Link
+              to="/about"
+              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+            >
+              About
+            </Link>
+            <Link
+              to="/contact"
+              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+            >
+              Contact
+            </Link>
+
+
+            <Link
               to="/courses"
               className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
             >
               Courses
             </Link>
 
-            <Link
+            {!user && <Link
               to="/login"
               className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
             >
               Login
-            </Link>
-            <Link
+            </Link>}
+
+
+
+            {!user && <Link
               to="/register"
-              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
+              className="text-white hover:text-gray-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
             >
               Register
-            </Link>
-            <Link
-              to="/forgetpassword"
-              className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
-            >
-              Forget Password
-            </Link>
-            <Link
+            </Link>}
+
+           { user && <Link
               to="/changepassword"
               className="text-white hover:text-blue-400 transition duration-300 ease-in-out px-3 py-2 rounded-md"
             >
               Change Password
-            </Link>
+            </Link>}
+            
+            
             
             {user && <button
             onClick={handleSignOut}
@@ -82,7 +103,11 @@ const Navbar = () => {
           </button>}
           </div>
 
-          {/* Mobile menu button */}
+
+
+
+
+          {/* Mobile menu */}
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
@@ -127,33 +152,21 @@ const Navbar = () => {
 
       <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+
           <Link
-            to="/login"
+            to="/"
             className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
             onClick={toggleMenu}
           >
-            Login
+            Home
           </Link>
+
           <Link
-            to="/register"
+            to="/about"
             className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
             onClick={toggleMenu}
           >
-            Register
-          </Link>
-          <Link
-            to="/forgetpassword"
-            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
-            onClick={toggleMenu}
-          >
-            Forget Password
-          </Link>
-          <Link
-            to="/changepassword"
-            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
-            onClick={toggleMenu}
-          >
-            Change Password
+            About
           </Link>
 
           <Link
@@ -165,6 +178,39 @@ const Navbar = () => {
           </Link>
 
 
+          {!user &&<Link
+            to="/login"
+            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
+            onClick={toggleMenu}
+          >
+            Login
+          </Link>}
+
+          <Link
+            to="/contact"
+            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
+            onClick={toggleMenu}
+          >
+            Contact
+          </Link>
+
+          {!user && <Link
+            to="/register"
+            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
+            onClick={toggleMenu}
+          >
+            Register
+          </Link>}
+
+          {user && <Link
+            to="/changepassword"
+            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-400 hover:bg-gray-700"
+            onClick={toggleMenu}
+          >
+            Change Password
+          </Link>}
+
+          
            {user && <button
             onClick={handleSignOut}
             className="text-white hover:text-red-400 px-3 py-2 rounded-md"
@@ -179,3 +225,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
