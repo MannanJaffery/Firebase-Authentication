@@ -13,8 +13,6 @@ import {Navigation ,Pagination} from 'swiper/modules';
 const Homepage = () => {
   const {
     courses,
-    subcourses,
-    selectedCourse,
     setSelectedCourse,
     loading,
   } = useCourse();
@@ -76,7 +74,7 @@ const Homepage = () => {
             Choose from our wide range of courses to start your learning journey today.
           </p>
         </div>
-
+  
         <Swiper
         modules={[Navigation , Pagination]}
         navigation
@@ -91,19 +89,19 @@ const Homepage = () => {
 
         
           {courses.map((course) => (
-            <SwiperSlide key={course.id}>
+            <SwiperSlide key={course.id} className='h-full w-auto'>
 
-              <div className='bg-white rounded-md'>
+              <div className='bg-white h-[500px] rounded-md shadow-md max-w-sm mx-auto p-4 transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg'>
               {/* These images were added to github , and are being loaded from there */}
-              <img src={course.imageurl} alt="wrong" className='w-auto h-auto object-cover rounded-lg'/> 
+              <img src={course.imageurl} alt="Not Loaded" className='w-full h-72 object-cover border rounded-lg mt-2'/> 
               <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-center">
                   <h2 className="text-xl font-bold text-gray-800">{course.title}</h2>
                   <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
                     {course.level}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-4 min-h-[3.5rem]">{course.description}</p>
+                <p className="text-gray-600 min-h-[3.5rem]">{course.description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500">
                   <span>⏱️ {course.duration}</span>
                   <button
@@ -135,6 +133,9 @@ const Homepage = () => {
             </SwiperSlide>
           ))}
       </Swiper>
+    
+
+      
       </main>
 
 

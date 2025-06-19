@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 import 'swiper/css';
+
 import 'swiper/css/navigation';
 import 'swiper/css/pagination'
 
