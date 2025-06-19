@@ -1,6 +1,6 @@
 import Navbar from "./navbar";
 import Footer from "./footer";
-
+// there is static data in this webpage
 const About = () => {
   return (
     
@@ -25,7 +25,7 @@ const About = () => {
             </p>
           </div>
           <img
-            src="laptopguy.jpg"
+            src="/laptopguy.jpg"
             alt="Our Mission"
             className="w-full rounded-lg shadow-md object-cover h-64"
           />
@@ -34,7 +34,7 @@ const About = () => {
         {/* What We Offer Section */}
         <section className="grid md:grid-cols-2 gap-10 items-center mb-16">
           <img
-            src="whatweoffer.png"
+            src="/whatweoffer.png"
             alt="What We Offer"
             className="w-full rounded-lg shadow-md object-cover h-64 order-2 md:order-1"
           />
@@ -59,7 +59,7 @@ const About = () => {
             </p>
           </div>
           <img
-            src="techstack.png"
+            src="/techstack.png"
             alt="Tech Stack"
             className="w-full rounded-lg shadow-md object-cover h-64"
           />
