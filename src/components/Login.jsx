@@ -33,6 +33,7 @@ const loginwithcred= async (e)=>{
     alert("User has logged in");
     }catch(err){
       await Errorlog(err, "login.jsx");
+      alert("Wrong Credentials, try again")
       console.log(err);
     }
 
