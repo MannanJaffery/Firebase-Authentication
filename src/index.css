@@ -5,6 +5,23 @@
 body{
     @apply font-mono;
 } */
-.swiper-pagination{
-    @apply mt-40;
+
+
+.custom-quill .ql-editor {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 1rem; 
+  line-height: 1.5;
+  padding-right: 0.5rem;     
+}
+
+
+
+
+.custom-quill .ql-editor::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-quill .ql-editor::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
 }

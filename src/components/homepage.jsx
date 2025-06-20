@@ -50,17 +50,13 @@ const Homepage = () => {
       alert(`Successfully enrolled in ${course.title}`);
     } catch (err) {
 
-      Errorlog(err , "homepage.jsx");
+      await Errorlog(err , "homepage.jsx");
       console.error("Error enrolling user in course:", err);
 
     }
   };
 
-  const handleDetail = (course_id) => {
-    setSelectedCourse(course_id);
-  };
-
-
+  
   return (
     // <div className="min-h-screen w-full bg-gray-50  ">
     <div
