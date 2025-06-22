@@ -103,7 +103,9 @@ const Homepage = () => {
                 <p className="text-gray-600 min-h-[3.5rem]">{course.description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500">
                   <span>⏱️ {course.duration}</span>
-                  <button
+                  
+                  
+                  {/* <button
                     className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                     onClick={() => {
                       if (!user) {
@@ -114,10 +116,10 @@ const Homepage = () => {
                     }}
                   >
                     Enroll Now
-                  </button>
+                  </button> */}
 
                   <button
-                    className="hover:text-blue-800"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                     onClick={() => {
                       
                       navigate(`/category/${course.id}`);

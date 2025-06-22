@@ -3,10 +3,12 @@ import { useCourse } from "../context/CourseProvider";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { useAuth } from "../context/AuthContext";
 
 
 const Category = () => {
   const {
+    
     courses,
     subcourses,
     loading,
@@ -15,7 +17,7 @@ const Category = () => {
   const navigate=useNavigate();
 
   const { catid } = useParams();
-
+  const {user} = useAuth();
 
   if (loading) return <div className="p-10">Loading...</div>;
 
@@ -79,6 +81,23 @@ const Category = () => {
 
                   <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
                     <span>⏱️ {sub.duration}</span>
+
+
+                    <button
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    onClick={() => {
+                      if (!user) {
+                        alert("User must be Logged in to Enroll.");
+                      } else {
+
+                        navigate(`/payment/${sub.id}`);
+                      }
+                    }}
+                  >
+                    Enroll Now
+                  </button>
+
+
                     <button
                       className=" text-blue-900 hover:text-blue-800"
                       onClick={() => {

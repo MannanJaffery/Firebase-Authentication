@@ -31,8 +31,9 @@ const Changepassword = () => {
       alert("Password updated successfully!");
       navigate("/");
     } catch (err) {
-      Errorlog(err , "change password component");
+      await Errorlog(err , "change password component");
       console.log("Error:", err.message);
+      alert("Wrong current password entered");
 
     }
   };
