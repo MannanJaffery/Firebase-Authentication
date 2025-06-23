@@ -20,7 +20,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const App = () => {
 
-  const stripepromise = loadStripe('pk_live_51RccK8LZs7wBNJ9a8LmPd46wgdXlwwaowHJXBCmjBI1itI9a5symxVquGhBFOi65OnoMElGUC1XbZxjGYaoNmePg0045ypgnE5')
+  const stripepromise = loadStripe('pk_test_51RccK8LZs7wBNJ9aa9MIEtHtwR4Zd4AzvsbILJHszmpJG6XTVv5wbYQR1jYr1B710PVYUfvJYr6aYbQcul7sdv2d00idU9WFc4')
   return (
     <>
 <BrowserRouter> 
