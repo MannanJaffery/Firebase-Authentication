@@ -1,4 +1,6 @@
 
+//https://firebase-authentication-production.up.railway.app/
+
 
 const express = require('express');
 const cors = require('cors');
@@ -6,8 +8,14 @@ require('dotenv').config();
 const stripe = require('stripe')(process.env.SECRET_STRIPE_KEY);
 const app = express();
 
-app.use(cors());
+
+
+app.use(cors({
+  origin:'https://mini-flex.vercel.app/'
+}));
 app.use(express.json()); 
+
+
 
 app.post('/create-payment-intent', async (req, res) => {
   const { amount } = req.body;

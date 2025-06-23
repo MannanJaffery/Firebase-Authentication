@@ -33,13 +33,16 @@ const Payment = () => {
 
   useEffect(() => {
   if (selected_subcourse?.price) {
-    fetch('http://localhost:5000/create-payment-intent', {
+    fetch('https://firebase-authentication-production.up.railway.app/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: selected_subcourse.price * 100 })
     })
       .then(res => res.json())
-      .then(data => setClientSecret(data.clientSecret));
+      .then(data => setClientSecret(data.clientSecret))
+      .catch(err=>{
+        console.log("this is the error message from payment page, maybe somethibg wrong in backend");
+      })
   }
 }, [selected_subcourse]);
 
