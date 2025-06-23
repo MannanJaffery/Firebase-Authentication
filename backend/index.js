@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors({
-  origin:'https://mini-flex.vercel.app/'
+  origin:'https://mini-flex.vercel.app'
 }));
 app.use(express.json()); 
 
