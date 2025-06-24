@@ -6,7 +6,7 @@ import Footer from "./footer";
 import {useStripe , useElements ,CardElement} from '@stripe/react-stripe-js'
 import { useState } from "react";
 import { useEffect } from "react";
-import { updateDoc ,doc ,updateDoc} from "firebase/firestore";
+import { updateDoc ,doc } from "firebase/firestore";
 
 
 
