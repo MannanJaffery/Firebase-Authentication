@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { updateDoc ,doc } from "firebase/firestore";
 
 
-
 const Payment = () => {
 
   const {subid} = useParams();
