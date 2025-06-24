@@ -6,6 +6,8 @@ import Footer from "./footer";
 import {useStripe , useElements ,CardElement} from '@stripe/react-stripe-js'
 import { useState } from "react";
 import { useEffect } from "react";
+import { updateDoc ,doc ,updateDoc} from "firebase/firestore";
+
 
 
 const Payment = () => {
@@ -30,7 +32,7 @@ const Payment = () => {
   const selected_subcourse = subcourses.find((sub)=>(sub.id===subid));
   const user = useAuth();
 
-
+  
   useEffect(() => {
   if (selected_subcourse?.price) {
     fetch('https://firebase-authentication-production.up.railway.app/create-payment-intent', {
@@ -47,6 +49,39 @@ const Payment = () => {
 }, [selected_subcourse]);
 
 
+const handleEnroll = async (course) => {
+    console.log("Submitting enrollment...");
+
+    try {
+      if (!user) {
+        alert("Please log in to enroll.");
+        return;
+      }
+
+      const userRef = doc(db, "User", user.uid);
+
+      const courseData = {
+        // image: course.imageurl,
+        title: course.title,
+        description: course.description,
+        duration: course.duration,
+        level: course.level,
+        id: course.id,
+        price: course.price,
+      };
+
+      await updateDoc(userRef, {
+        enrolledCourses: arrayUnion(courseData),
+      });
+
+      alert(`Successfully enrolled in ${course.title}`);
+    } catch (err) {
+
+      await Errorlog(err , "homepage.jsx");
+      console.error("Error enrolling user in course:", err);
+
+    }
+  };
 
 
 
@@ -71,7 +106,10 @@ const handleSubmit = async () => {
       setError(result.error.message);
     } else {
       if (result.paymentIntent.status === 'succeeded') {
+        await handleEnroll(selected_subcourse);
+        console.log("Course enrolled");
         alert("✅ Payment successful!");
+
       }
     }
   };
