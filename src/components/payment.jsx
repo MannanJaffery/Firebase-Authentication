@@ -6,7 +6,11 @@ import Footer from "./footer";
 import {useStripe , useElements ,CardElement} from '@stripe/react-stripe-js'
 import { useState } from "react";
 import { useEffect } from "react";
-import { updateDoc ,doc } from "firebase/firestore";
+import { updateDoc ,doc , arrayUnion } from "firebase/firestore";
+import { db } from "../firebase";
+
+
+
 
 
 const Payment = () => {
@@ -29,7 +33,7 @@ const Payment = () => {
 
 
   const selected_subcourse = subcourses.find((sub)=>(sub.id===subid));
-  const user = useAuth();
+  const {user} = useAuth();
 
   
   useEffect(() => {
