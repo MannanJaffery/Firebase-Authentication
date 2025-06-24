@@ -66,7 +66,7 @@ const handleEnroll = async (course) => {
       const courseData = {
         // image: course.imageurl,
         title: course.title,
-        description: course.description,
+        description: course.short_desc,
         duration: course.duration,
         level: course.level,
         id: course.id,

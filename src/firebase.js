@@ -21,22 +21,22 @@ const auth=getAuth(app);
 
 //sign up is here , does not need any other file , more clean this way
 
-export const createUserDocument = async (user, name) => {
+export const createUserDocument = async (user, name,role) => {
   if (!user) return;
 
   const userRef = doc(db, "User", user.uid);
   await setDoc(userRef, {
     email: user.email,
     Name: name,
+    role:role,
     enrolledCourses: []
   }, { merge: true });
 };
 
-const signUpUser = async (email, password, name) => {
+const signUpUser = async (email, password, name,role) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-
-  await createUserDocument(user, name); 
+  await createUserDocument(user, name,role); 
   return userCredential;
 };
 

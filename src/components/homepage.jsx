@@ -18,10 +18,11 @@ const Homepage = () => {
     loading,
   } = useCourse();
 
-  const { user } = useAuth(); // to access current user
+  const { user , role , loading:authloading } = useAuth(); // to access current user
   const navigate = useNavigate();
 
-  if (loading) return <div className="p-10">Loading Courses...</div>;
+  console.log(`The role of the current user is ${role}`)
+
 
   const handleSubmit = async (course) => {
     console.log("Submitting enrollment...");
@@ -58,13 +59,26 @@ const Homepage = () => {
 
   
   return (
+
+
     // <div className="min-h-screen w-full bg-gray-50  ">
     <div
   className="min-h-screen w-full bg-grid bg-grid-pattern bg-gray-50"
 >
+
+
       <Navbar />
 
+
+      
+
       <main className="container mx-auto px-4 py-8">
+
+        {(authloading||loading) && (
+          <div className="flex justify-center items-center h-screen">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid"></div>
+          </div>
+        )}
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
             Select the <span className="text-blue-600">Courses</span>
